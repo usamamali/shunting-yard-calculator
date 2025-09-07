@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Properties>
+		<Property name="CALC_LEVEL">${sys:calc.level:-INFO}</Property>
+		<Property name="PATTERN">%d{HH:mm:ss.SSS} %-5p [%t] %c{36} - %m%notEmpty{ | %ex{short}}%n</Property>
+	</Properties>
+
+	<Appenders>
+		<File name="FILE" fileName="logs/calculator.log" append="true">
+			<PatternLayout pattern="${PATTERN}"/>
+		</File>
+	</Appenders>
+
+	<Loggers>
+		<!-- your code -->
+		<Logger name="org.usama.pocs.calc" level="${CALC_LEVEL}" additivity="false">
+			<AppenderRef ref="FILE"/>
+		</Logger>
+
+		<Root level="OFF">
+		</Root>
+	</Loggers>
+</Configuration>
