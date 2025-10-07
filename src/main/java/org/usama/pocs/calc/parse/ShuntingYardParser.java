@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+
 import org.usama.pocs.calc.exception.InvalidTokenException;
 import org.usama.pocs.calc.exception.UnexpectedTokenException;
 import org.usama.pocs.calc.lex.Token;
@@ -23,7 +24,9 @@ public final class ShuntingYardParser implements ExpressionParser {
             switch (token.type()) {
                 case NUMBER -> rpnTokens.add(token);
                 case OPERATOR -> {
-                    while (!operators.isEmpty() && precedence(operators.peek()) >= precedence(token)) {
+                    while (!operators.isEmpty() && precedence(operators.peek()) >= precedence(token)
+                            && !isRightAssociativeOperator(token)
+                    ) {
                         rpnTokens.add(operators.pop());
                     }
                     operators.push(token);
@@ -54,7 +57,16 @@ public final class ShuntingYardParser implements ExpressionParser {
         return switch (operator.value()) {
             case "+", "-" -> 1;
             case "*", "/" -> 2;
+            case "^" -> 3;
             default -> throw new UnexpectedTokenException("Unknown operator: " + operator);
         };
+    }
+
+    private static boolean isRightAssociativeOperator(Token operator) {
+        if (operator.type() != TokenType.OPERATOR) {
+            throw new UnexpectedTokenException("Token is not an operator: " + operator);
+        }
+
+        return "^".equals(operator.value());
     }
 }

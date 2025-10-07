@@ -32,6 +32,18 @@ class ShuntingYardParserTest {
     }
 
     @Test
+    @DisplayName("*/^ has higher precedence than +")
+    void parsePrecedenceInOrderPower() {
+        var tokens = parser.parse(
+                List.of(NUM("2"), OP("^"), NUM("3"), OP("^"), NUM("2"))
+        );
+
+        var expectedTokens = List.of(NUM("2"), NUM("3"), NUM("2"), OP("^"), OP("^"));
+
+        assertEquals(expectedTokens, tokens, "RPN Tokens do not match expected tokens");
+    }
+
+    @Test
     @DisplayName("+ before * defers to higher precedence")
     void parsePrecedenceReversed() {
         var tokens = parser.parse(

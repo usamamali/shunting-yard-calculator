@@ -70,11 +70,12 @@ public class RpnEvaluator {
      * @throws InvalidTokenException if the operator is unknown
      */
     private static long applyOperator(long left, long right, String operator) {
-        return switch (operator) {
+        return (long) switch (operator) {
             case "+" -> Math.addExact(left, right);
             case "-" -> Math.subtractExact(left, right);
             case "*" -> Math.multiplyExact(left, right);
             case "/" -> left / right;
+            case "^" -> Math.pow(left, right);
             default -> throw new InvalidTokenException(operator, TokenType.OPERATOR);
         };
     }

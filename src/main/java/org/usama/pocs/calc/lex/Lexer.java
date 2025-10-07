@@ -72,7 +72,7 @@ public final class Lexer {
      */
     private boolean isOperator(String part) {
         return part.length() == 1
-            && "+-*/".contains(part);
+            && "+-*/^".contains(part);
     }
 
     /**

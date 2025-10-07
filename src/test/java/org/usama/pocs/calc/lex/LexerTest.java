@@ -46,6 +46,21 @@ class LexerTest {
     }
 
     @Test
+    @DisplayName("tokenize: basic expression")
+    void tokenizeExpressionWithPower() {
+        var tokens = lexer.tokenize("2 ^ 3 ^ 2");
+        var expectedTokens = List.of(
+                NUM("2"),
+                OP("^"),
+                NUM("3"),
+                OP("^"),
+                NUM("2")
+        );
+
+        assertEquals(expectedTokens, tokens, "Tokens do not match expected tokens");
+    }
+
+    @Test
     @DisplayName("tokenize: signed numbers allowed where a number is expected")
     void tokenizeSignedInteger() {
         var tokens = lexer.tokenize("1 + 2 - 3 * -4 / 5");

@@ -34,6 +34,14 @@ class RpnEvaluatorTest {
         assertEquals(7, result, "RPN evaluation result is incorrect");
     }
 
+    @Test
+    @DisplayName("evaluate: 1 2 3 ^ ^ -> 512")
+    void evaluateSimpleInputPower() {
+        var rpnTokens = List.of(NUM("2"), NUM("3"), NUM("2"), OP("^"), OP("^"));
+        var result = evaluator.evaluate(rpnTokens);
+        assertEquals(512, result, "RPN evaluation result is incorrect");
+    }
+
     @ParameterizedTest(name = "evaluate: {0} -> {1}")
     @MethodSource("validRpnCases")
     void evaluateVariousInputs(List<Token> rpn, long expected) {
