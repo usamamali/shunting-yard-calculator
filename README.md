@@ -10,7 +10,7 @@ java -jar target/calculator-1.0.0.jar "3 + 5 * 2 - 8 / 4"
 
 ## Algorithms & Mechanism
 
-- **Lexing** (`Lexer`): splits on whitespaces and identifies tokens. Tokens can be either `NUMBER` (signed integer like `-2`) or `OPERATOR` (`+ - * /`).
+- **Lexing** (`Lexer`): splits on whitespaces and identifies tokens. Tokens can be either `NUMBER` (signed integer like `-2`) or `OPERATOR` (`+ - * / ^`).
 - **Parsing (Shunting-Yard)**: uses [Shunting Yard Algorithm](https://en.wikipedia.org/wiki/Shunting_yard_algorithm) to convert infix expressions to postfix expressions (Reverse Polish Notation).
 - **Evaluation (RPN Stack)**: evaluates the postfix expression using a stack-based approach.
 
